@@ -1,8 +1,11 @@
 # Model summary: quantum models and their same-size classical counterparts
 
-For building the presentation slides. Every number below is read from the committed test-run results (the source file
-is named under each table) by a script, so it matches `notebooks/07_test_comparison.ipynb` exactly. A CSV with the same
-numbers, one row per model × setting × test set, is next to this file: [model_summary.csv](model_summary.csv).
+A reference card for every model in the comparison: what it does, its inputs, and its test-set error at every training
+size. Every number is read from the committed evaluation results (the source file is named under each table), so it
+matches [notebook 10](../notebooks/10_test_set_results.ipynb) exactly. Test runs are the evaluation runs logged in
+[test_runs.csv](test_runs.csv): run 1 is the main evaluation, run 2 the shot-aware follow-up, runs 3 and 4 the
+noise-model and IBM hardware runs. A CSV with the same numbers, one row per model × setting × test set, is next to this
+file: [model_summary.csv](model_summary.csv).
 
 **How to read the numbers**
 - **MAE and RMSE** are in debye (D); lower is better. MAE is the primary metric (rare zwitterions up to 29.6 D inflate
@@ -21,7 +24,7 @@ numbers, one row per model × setting × test set, is next to this file: [model_
 | Name | What it is | Size → qubits |
 |---|---|---|
 | `pls10` | 10 PLS components of the 188 features below: weighted combinations chosen to predict √\|μ\|, refit on each training set (Yeo-Johnson scaling first) | 10 inputs → 10 qubits (5 for the RY-RZ encoder) |
-| `composition` | element counts: C, H, N, O, F (the brief's composition-only ablation) | 5 inputs → 5 qubits |
+| `composition` | element counts: C, H, N, O, F (the composition-only ablation) | 5 inputs → 5 qubits |
 | `all_legal` | all 188 features: radial distributions (106), Coulomb-matrix eigenvalues (29), geometry, bond and ring features (26), functional groups (19), composition (5), charge-equilibration dipole (3) | 188 (classical only) |
 
 All models in parts A and B share the same preprocessing: Yeo-Johnson feature scaling (clipped at ±10), a √|μ| target
@@ -143,7 +146,7 @@ Same ZZ encoding; measures ⟨Z⟩ on each of the 10 qubits (10 numbers per mole
 *Source: `results/comparison/test_run01_quantum.csv`.*
 
 
-### A7. Shot-aware quantum kernels (test run 2, designed after run 1: post-hoc)
+### A7. Shot-aware quantum kernels (test run 2, the follow-up to run 1)
 
 On a device every kernel entry (or Bloch coordinate) is estimated from S measurements ("shots"). Tuned on exact
 values, the fidelity kernel collapses under shot noise (A8). The shot-aware versions use S-shot estimates **everywhere**:
@@ -320,7 +323,7 @@ Kernel ridge regression with the Gaussian (RBF) kernel exp(−γ‖x − x′‖
 
 ### B4. Random forest
 
-An ensemble of regression trees (the brief's tree baseline); tree settings by CV.
+An ensemble of regression trees (the tree baseline); tree settings by CV.
 
 **Inputs `pls10`, test run 1:**
 
