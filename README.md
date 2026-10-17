@@ -33,9 +33,10 @@ All numbers are test-set **mean absolute error (MAE) in debye**, averaged over 3
 always predicting the average dipole gives 1.14 D.
 
 1. **The quantum models tie their classical twin.** With 1,000 training labels, quantum kernel ridge regression on
-   10 qubits reaches **0.492 D**, and RBF kernel ridge on the same 10 inputs reaches **0.490 D**. The paired
-   difference is at most 0.005 D at every training size. A control circuit with no entanglement does equally well
-   (0.490 D), so the quantum feature map adds nothing measurable here.
+   10 qubits reaches **0.492 D**, and classical kernel ridge with a Gaussian (RBF) kernel on the same 10 inputs
+   reaches **0.490 D**. On molecules with familiar formulas, the paired difference is at most 0.005 D at every
+   training size. A control circuit with no entanglement does equally well (0.490 D), so the quantum feature map adds
+   nothing measurable here.
 2. **The best classical model wins as data grows.** A physics-shaped neural network, which predicts a charge on every
    atom and adds up the resulting dipole, reaches **0.040 D** with all 99,198 training labels: 28× better than the
    mean, and far beyond what any quantum model could be trained on with realistic hardware time.
@@ -85,7 +86,8 @@ The details, with a glossary of every term, are in [docs/methods.md](docs/method
 
 ## Results at a glance
 
-Test-set MAE (D), mean ± standard deviation over 3 seeds; all models in the top block use the same 10 inputs.
+Test-set MAE (D), mean ± standard deviation over 3 seeds. The first five rows all use the same 10 inputs; the best
+classical model uses any input and any model family.
 
 | Model | N = 100 | N = 300 | N = 1,000 | N = 1,000, unseen formulas |
 |---|---|---|---|---|
