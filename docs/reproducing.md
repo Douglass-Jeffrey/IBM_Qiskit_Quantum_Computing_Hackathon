@@ -28,8 +28,9 @@ pip check && pytest -q                 # 671 tests; data-dependent ones skip unt
 <details><summary>Troubleshooting</summary>
 
 - **`No matching distribution found for numpy==2.5.3`:** the environment is not Python 3.12. Recreate it with 3.12.
-- **Windows, `OSError` with a very long path during `pip install`:** the path exceeds Windows' 260-character limit.
-  Clone into a shorter folder, or enable long paths (`LongPathsEnabled`).
+- **Windows, `OSError` or `FileNotFoundError` with a very long path** (during `pip install`, or when a long run
+  writes its fit cache under `data/processed/cache/`): the path exceeds Windows' 260-character limit. Clone into a
+  shorter folder (the repository root should be under ~90 characters), or enable long paths (`LongPathsEnabled`).
 - **The first notebook cell says the package belongs to another checkout:** the selected kernel's environment was
   installed from a different copy of the project; select this copy's environment.
 - **Why `pip install` comes after `conda activate`:** activation sets `PYTHONNOUSERSITE=1`, which hides per-user
