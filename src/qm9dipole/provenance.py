@@ -19,13 +19,14 @@ RESULTS_DIR = REPO_ROOT / "results"
 FIGURES_DIR = REPO_ROOT / "figures"
 
 #: Results and figures are grouped by the question they answer (results/README.md), the
-#: quantum-vs-classical comparison first. A file's group follows from its name (first match wins);
-#: names matching no pattern (e.g. the run log test_runs.csv) stay at the top level.
+#: quantum-vs-classical comparison first. A file's group follows from its name (first match wins):
+#: `nbNN_` files come from notebooks/NN_*.ipynb, `test_runNN_` files from scripts/final_eval.py.
+#: Names matching no pattern (e.g. the run log test_runs.csv) stay at the top level.
 OUTPUT_GROUPS: tuple[tuple[str, str], ...] = (
-    ("comparison", r"explore04_(track_b|quantum_baselines)|explore06_|test_run\d+_(quantum|headline|learning_curves|shot_aware)"),
-    ("hardware", r"explore07_|test_run\d+_(shots|noise)|hardware_"),
-    ("classical", r"explore04_|explore05_|test_run\d+_track_a"),
-    ("development", r"explore0[123]_|m\d_"),
+    ("comparison", r"nb06_(track_b|quantum_baselines)|nb08_|test_run\d+_(quantum|headline|learning_curves|shot_aware)"),
+    ("hardware", r"nb09_|test_run\d+_(shots|noise)|hardware_"),
+    ("classical", r"nb06_|nb07_|test_run\d+_track_a"),
+    ("development", r"nb0[1-5]_"),
 )
 
 
@@ -38,12 +39,12 @@ def output_group(name: str) -> str:
 
 
 def results_file(name: str) -> Path:
-    """Path of the results file `name` (e.g. "explore06_main.csv") in its group folder."""
+    """Path of the results file `name` (e.g. "nb08_main.csv") in its group folder."""
     return RESULTS_DIR / output_group(name) / name
 
 
 def figure_file(name: str) -> Path:
-    """Path of the figure `name` (e.g. "explore06_qubits.png") in its group folder (created if needed)."""
+    """Path of the figure `name` (e.g. "nb08_qubits.png") in its group folder (created if needed)."""
     path = FIGURES_DIR / output_group(name) / name
     path.parent.mkdir(parents=True, exist_ok=True)
     return path

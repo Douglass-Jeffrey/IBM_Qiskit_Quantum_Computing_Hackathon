@@ -1,12 +1,12 @@
 """Plumbing for the exploration chain (notebooks/explore_0*): where each step writes its
 output, how the next step loads it, and the feature sets every model notebook uses.
 
-    01 EDA ─▶ results/explore01_recommendations.csv
+    01 EDA ─▶ results/nb03_recommendations.csv
     02 cleaning + features ─▶ data/processed/explore_features.parquet (regenerated, gitignored)
-                              results/explore02_feature_catalog.csv (committed)
-    03 scaling + dimension ─▶ results/explore03_preprocessing.json (committed)
-    04 models ─▶ results/explore04_*.csv (learning curves, Track A and Track B)
-    05 generalization ─▶ results/explore05_*.csv
+                              results/nb04_feature_catalog.csv (committed)
+    03 scaling + dimension ─▶ results/nb05_preprocessing.json (committed)
+    04 models ─▶ results/nb06_*.csv (learning curves, Track A and Track B)
+    05 generalization ─▶ results/nb07_*.csv
 
 Exploration X2 (the 2026-10-06 redesign of the classical analysis around accuracy) works on the **development universe**: the training
 pool plus the two development sets (`dev`, `dev_unseen`), never a test set. Per-atom features
@@ -31,8 +31,8 @@ from qm9dipole.provenance import results_file
 
 CONFIG_PATH = REPO_ROOT / "configs" / "explore.yaml"
 FEATURES_PATH = PROCESSED_DIR / "explore_features.parquet"
-CATALOG_NAME = "explore02_feature_catalog"
-PREPROCESSING_PATH = results_file("explore03_preprocessing.json")
+CATALOG_NAME = "nb04_feature_catalog"
+PREPROCESSING_PATH = results_file("nb05_preprocessing.json")
 
 #: Molecule-level feature blocks, as written by explore_02. Legal blocks are functions of Z and R.
 LEGAL_BLOCKS: tuple[str, ...] = ("composition", "cm", "engineered", "groups", "qeq", "rdf")
@@ -56,7 +56,7 @@ def load_features() -> pd.DataFrame:
     indexed by id), with the target `mu` and bookkeeping columns `formula`, `n_heavy` and
     `subset` (pool, dev or dev_unseen)."""
     if not FEATURES_PATH.exists():
-        raise FileNotFoundError(f"{FEATURES_PATH.name} not found: run notebooks/explore_02_cleaning_and_features.ipynb")
+        raise FileNotFoundError(f"{FEATURES_PATH.name} not found: run notebooks/04_cleaning_and_features.ipynb")
     return pd.read_parquet(FEATURES_PATH)
 
 
@@ -64,7 +64,7 @@ def load_catalog() -> pd.DataFrame:
     """One row per feature: block, level (molecule or atom), legal, kept, reason, description."""
     path = results_file(f"{CATALOG_NAME}.csv")
     if not path.exists():
-        raise FileNotFoundError(f"{path.name} not found: run notebooks/explore_02_cleaning_and_features.ipynb")
+        raise FileNotFoundError(f"{path.name} not found: run notebooks/04_cleaning_and_features.ipynb")
     return pd.read_csv(path)
 
 
@@ -120,5 +120,5 @@ def load_atoms(table: pd.DataFrame, ids: np.ndarray, catalog: pd.DataFrame | Non
 def load_preprocessing() -> dict:
     """The scaling, target transform and Track B reduction chosen by explore_03 (and evidence)."""
     if not PREPROCESSING_PATH.exists():
-        raise FileNotFoundError(f"{PREPROCESSING_PATH.name} not found: run notebooks/explore_03_standardization_and_dimension.ipynb")
+        raise FileNotFoundError(f"{PREPROCESSING_PATH.name} not found: run notebooks/05_scaling_and_compression.ipynb")
     return json.loads(PREPROCESSING_PATH.read_text())

@@ -224,7 +224,7 @@ def main() -> int:
     if "track_a" in sections:
         acfg, xcfg = cfg["track_a"], load_config()
         TA, CC = xcfg["track_a"], xcfg["charge_model"]
-        chosen_net = json.loads(results_file("explore04_charge_selection.meta.json").read_text())["chosen"]
+        chosen_net = json.loads(results_file("nb06_charge_selection.meta.json").read_text())["chosen"]
         p_net = {**CC["common"], **CC["candidates"][chosen_net]}
         p_net["hidden"] = tuple(p_net["hidden"])
         a_sizes = [100] if args.smoke else list(acfg["sizes"])

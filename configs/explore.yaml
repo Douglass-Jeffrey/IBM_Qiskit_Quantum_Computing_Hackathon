@@ -1,6 +1,6 @@
-# Exploration chain (notebooks/explore_0*): settings every notebook reads, so a change here
-# flows through all later steps. Values follow from the EDA (explore_01); the comments give
-# the reasons. Nothing here is chosen on a test set.
+# Settings read by the development notebooks (notebooks/03-07), so a change here flows through all
+# later steps. Values follow from the data analysis (notebook 03); the comments give the reasons.
+# Nothing here is chosen on a test set.
 
 eda:
   # Random subsample of the training pool for slow estimators (mutual information, per-atom
@@ -16,19 +16,18 @@ cleaning:
   redundancy_spearman: 0.99
 
 standardization:
-  # Feature scalings compared by CV in explore_03 (see src/qm9dipole/preprocess.py).
+  # Feature scalings compared by CV in notebook 05 (see src/qm9dipole/preprocess.py).
   candidates: [standard, robust, log_standard, yeo_johnson, quantile_normal]
   # log_standard: signed log1p on columns whose training-set |skewness| exceeds this.
   skew_threshold: 1.0
   # Scale-sensitive models used to choose a scaling (trees are invariant to monotone maps).
   compare_models: [ridge, rbf_krr]
-  # Target transforms compared by CV in explore_03; predictions are always in debye.
+  # Target transforms compared by CV in notebook 05; predictions are always in debye.
   target_candidates: [standard, sqrt, log1p]
 
 quantum:
   # Report the share of scaled feature values beyond +-this many standard deviations:
   # rotation angles gamma * x wrap around, so far outliers alias onto ordinary values.
-  # (X1 fixed n_qubits: 8 here; X2 chooses the number of inputs by CV in explore_03.)
   angle_sigma: 3
 
 track_a:

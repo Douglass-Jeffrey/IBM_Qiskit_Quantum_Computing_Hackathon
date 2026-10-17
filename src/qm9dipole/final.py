@@ -1,6 +1,6 @@
 """Test-set evaluation: features for the test molecules, the model roster of
 `configs/test_eval.yaml`, finite-shot and noisy inference on the quantum test subsets, and the
-log of test runs. The driver is `scripts/final_eval.py`; `notebooks/07_test_comparison.ipynb`
+log of test runs. The driver is `scripts/final_eval.py`; `notebooks/10_test_set_results.ipynb`
 presents a run.
 
 The team iterates after test runs (the team's decision; every run is logged): change the config or the code, describe
