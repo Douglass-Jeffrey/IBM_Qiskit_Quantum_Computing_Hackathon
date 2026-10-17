@@ -151,7 +151,7 @@ PROPERTY_NAMES: tuple[str, ...] = (
 )
 _N_PROPERTY_TOKENS = 2 + len(PROPERTY_NAMES)
 
-#: What the headline models may use (the brief: composition + geometry) and what they predict.
+#: What the models may use as inputs (composition + geometry) and what they predict.
 HEADLINE_INPUTS: tuple[str, ...] = ("Z", "R")
 TARGET = "mu"
 

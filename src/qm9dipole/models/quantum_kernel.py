@@ -340,8 +340,8 @@ def _fold_job(kernel, fold, embed_setting, kernel_grid, alphas):
 
 
 class KernelRidgeFitter:
-    """Kernel ridge regression with any kernel (fidelity, projected, RBF) for the X2 harness
-    (`evaluate.dev_curve`), tuned exactly as `fitters.TabularFitter` tunes RBF kernel ridge.
+    """Kernel ridge regression with any kernel (fidelity, projected, RBF) for the learning-curve
+    harness (`evaluate.dev_curve`), tuned exactly as `fitters.TabularFitter` tunes RBF kernel ridge.
 
     frame:     molecule-level features indexed by ID (e.g. the all_legal columns).
     kernel:    a kernel object (FidelityKernel, ProjectedKernel, RBFKernel).

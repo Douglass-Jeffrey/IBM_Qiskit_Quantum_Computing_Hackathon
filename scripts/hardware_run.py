@@ -13,10 +13,10 @@ overlap with itself, for the depolarizing correction). Models use the settings t
 run (default: run 1). The test molecules are those of test run 1's noise section (30 per quantum test
 subset), so the device, the FakeFez/FakeQuebec noise models and exact simulation compare directly.
 
-Safety (the team approves every hardware job in advance): a real device is contacted only with --submit (after a typed confirmation of
-the plan, or --yes once the team has approved it in advance) or --retrieve. The job is capped at
---max-seconds of QPU time. The IBM account is the one saved locally under --account (default "pinq2");
-no token appears in this repository. Runs that score test molecules are logged in results/test_runs.csv.
+Safety: a real device is contacted only with --submit (after a typed confirmation of the plan, or --yes)
+or --retrieve, and the job is capped at --max-seconds of QPU time. The IBM account is the one saved
+locally with QiskitRuntimeService.save_account(name=...) and selected with --account (default "pinq2",
+the name used for this project's run); no token appears in this repository. Runs that score test molecules are logged in results/test_runs.csv.
 """
 
 from __future__ import annotations
@@ -59,7 +59,7 @@ def main() -> int:
                     help="a test run's quantum-section CSV (relative to the repository): the settings each model chose by CV")
     ap.add_argument("--dry-run", action="store_true", help="development molecules instead of test molecules; not logged")
     ap.add_argument("--submit", action="store_true", help="submit to the real device named by --backend")
-    ap.add_argument("--yes", action="store_true", help="skip the typed confirmation (only with the team's approval)")
+    ap.add_argument("--yes", action="store_true", help="skip the typed confirmation")
     ap.add_argument("--no-wait", action="store_true", help="exit after submitting; fetch the result later with --retrieve")
     ap.add_argument("--retrieve", metavar="JOB_ID")
     ap.add_argument("--allow-dirty", action="store_true")

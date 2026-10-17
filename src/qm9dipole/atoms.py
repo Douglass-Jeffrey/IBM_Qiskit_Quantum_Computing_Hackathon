@@ -1,5 +1,5 @@
 """Per-atom chemical environments from Z and R, and their molecule-level aggregates
-(exploration X2, Track A).
+(inputs of the latent-charge network, Track A).
 
 A dipole is a vector sum, μ = Σᵢ qᵢ rᵢ, so the natural unit of a dipole model is the atom:
 predict each atom's charge from its surroundings and let geometry add the contributions up

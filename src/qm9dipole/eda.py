@@ -1,4 +1,4 @@
-"""EDA helpers (notebooks/explore_01): a data dictionary of every QM9 field, integrity
+"""EDA helpers (notebook 03): a data dictionary of every QM9 field, integrity
 checks, and per-molecule summaries of the array-valued fields.
 
 Statistics should be computed on training-pool rows only; `integrity_checks` and the

@@ -1,11 +1,9 @@
 """Formula holdouts, test and development sets, anchors and nested training sets.
 
-Design (exploration X2, 2026-10-06; it replaces an earlier 25-molecules-per-formula pool
-and its small test sets). From the kept molecules (exclusions and geometric duplicates
-removed):
+Design. From the kept molecules (exclusions and geometric duplicates removed):
 
 1. **Unseen-formula test set** `test_unseen`: every molecule of a stratified 15% of formulas
-   (by heavy-atom count). The brief's "formulas absent from training".
+   (by heavy-atom count): formulas absent from all training data.
 2. **Development unseen formulas** `dev_unseen`: every molecule of a further stratified draw
    of formulas. They estimate new-formula error during development, so the test holdout is
    scored only by `scripts/final_eval.py`.
@@ -24,7 +22,7 @@ removed):
 
 All randomness comes from the seeds in configs/splits.yaml. The split seed spawns one
 independent stream per draw, so changing one draw never shifts another; stream 1 (unseen
-formulas) is the stream X1 used, so the unseen formulas are the same 93 as before. Each
+formulas) was also used by an earlier split design, so the 93 unseen formulas never changed. Each
 training seed s uses SeedSequence([split_seed, s]), so test sets cannot depend on it.
 
 Splits are saved as QM9 molecule IDs.
@@ -46,8 +44,8 @@ from qm9dipole.provenance import config_hash, git_hash
 SPLITS_DIR = REPO_ROOT / "splits"
 SPLITS_CONFIG = REPO_ROOT / "configs" / "splits.yaml"
 
-#: Independent random streams spawned from the split seed (index = spawn key). Stream 0 drew
-#: X1's 25-per-formula working pool and is retired; stream 1 is kept for the unseen formulas.
+#: Independent random streams spawned from the split seed (index = spawn key). Stream 0 drew a
+#: working pool of an earlier design and is unused; it stays so that the other keys keep their draws.
 STREAMS: tuple[str, ...] = ("retired_working_pool", "unseen", "familiar", "dev_unseen", "dev", "quantum")
 
 #: The molecule sets every Splits object holds, besides the training sets.
@@ -221,7 +219,7 @@ def build_splits(table: pd.DataFrame, cfg: dict) -> Splits:
 def training_pool(s: Splits, table: pd.DataFrame | None = None) -> np.ndarray:
     """Sorted IDs of the training pool P. Every training set is drawn from P, so analyses
     restricted to P never touch a test or development molecule. (`table` is accepted for
-    compatibility with callers written for X1 and ignored.)"""
+    compatibility with older callers and ignored.)"""
     return s.pool
 
 
@@ -339,7 +337,7 @@ def _ids(a: np.ndarray) -> list[int]:
 def save_splits(s: Splits, out_dir: Path = SPLITS_DIR, extra_meta: dict | None = None) -> list[Path]:
     """Write meta.json, one {set}.json per set in SET_NAMES, and train_order_s{seed}.json.
 
-    Existing .json files are removed first, so files from an older design (e.g. X1's
+    Existing .json files are removed first, so files from an older design (e.g.
     train_s{seed}_n{N}.json) cannot be left behind.
     """
     # Stamp before touching any file: deleting committed split files would make the

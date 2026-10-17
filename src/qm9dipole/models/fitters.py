@@ -1,4 +1,4 @@
-"""Models that train on a set of molecule IDs and predict any other IDs (exploration X2).
+"""Models that train on a set of molecule IDs and predict any other IDs.
 
 Every fitter has the same small interface, so one learning-curve harness
 (`evaluate.dev_curve`) can drive a mean baseline, a tuned XGBoost and the latent-charge network
@@ -10,7 +10,7 @@ alike:
     fitter.config           # the settings that define it (JSON-able; part of the cache key)
 
 Tuning never looks outside the training IDs: 5-fold CV for small training
-sets (the X1 / Track B protocol), an inner validation split for large ones. Every fitted
+sets (the Track B protocol), an inner validation split for large ones. Every fitted
 transform lives inside the estimator, so it is refit on each training set and fold.
 """
 

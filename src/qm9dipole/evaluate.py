@@ -1,8 +1,8 @@
 """Metrics, cross-validation and the learning-curve harnesses.
 
 Nothing here reads a test set. Callers pass training data only, and every
-number this module returns is a cross-validation estimate inside it, or (exploration X2,
-`dev_curve`) a score on a development set held out from training:
+number this module returns is a cross-validation estimate inside it, or (`dev_curve`) a
+score on a development set held out from training:
 - hyperparameters are chosen by CV MAE, with the same folds for every model;
 - fitted transforms (scaler, PCA) live inside the model pipeline, so `clone` + `fit` refits
   them on each fold's training part;
@@ -267,10 +267,10 @@ def permutation_importance_cv(estimator: BaseEstimator, X: np.ndarray, y: np.nda
 
 
 # --------------------------------------------------------------------------------------
-# Exploration X2: fit on a training set, score on development sets (never a test set).
+# Learning curves: fit on a training set, score on development sets (never a test set).
 # --------------------------------------------------------------------------------------
 
-#: |μ| at and above this (debye) is the zwitterion tail that dominates RMSE (explore_01).
+#: |μ| at and above this (debye) is the zwitterion tail that dominates RMSE (notebook 03).
 TAIL_D = 9.0
 
 
@@ -288,7 +288,7 @@ def scores(y: np.ndarray, pred: np.ndarray, tail: float = TAIL_D) -> dict[str, f
 def dev_curve(make_fitters: Callable[[int, int], dict], train_sets: dict[int, dict[int, np.ndarray]],
               eval_sets: dict[str, np.ndarray], y: pd.Series, sizes: list[int] | None = None,
               seeds: list[int] | None = None, cache_dir=None, progress: bool = True) -> tuple[pd.DataFrame, dict]:
-    """Learning curves scored on development sets (exploration X2, Track A).
+    """Learning curves scored on development sets (Track A, and the quantum comparison).
 
     make_fitters: (seed, N) -> {model name: fitter} (models/fitters.py); each fitter tunes inside
                   the training IDs it is given and nowhere else.

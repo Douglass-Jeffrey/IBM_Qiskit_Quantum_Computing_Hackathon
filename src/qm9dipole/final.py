@@ -3,11 +3,10 @@
 log of test runs. The driver is `scripts/final_eval.py`; `notebooks/10_test_set_results.ipynb`
 presents a run.
 
-The team iterates after test runs (the team's decision; every run is logged): change the config or the code, describe
-the change in the config's `note`, run again. Every run gets the next run number, its results
-are written as `results/test_runNN_<section>.csv` (with provenance sidecars), and one row is
-appended to `results/test_runs.csv`. Inside a run, every model still tunes on its training set
-only, exactly as in the development notebooks (04, 06, 07), and also predicts the development
+Every run gets the next run number, its results are written as
+`results/test_runNN_<section>.csv` (with provenance sidecars), and one row is appended to
+`results/test_runs.csv` with the commit, config hash and the config's `note`. Inside a run, every
+model tunes on its training set only, exactly as in the development notebooks (06, 08, 09), and also predicts the development
 sets, so a run can be checked against those notebooks and its reference models can be chosen
 on `dev` as before.
 """
@@ -38,7 +37,7 @@ def load_config(path: Path = CONFIG_PATH) -> dict:
 
 def legal_features(table: pd.DataFrame, ids: np.ndarray, columns: list[str], n_jobs: int = -1) -> pd.DataFrame:
     """The headline-legal molecule-level features `columns` for molecules `ids`, computed from Z
-    and R with the same descriptor functions as notebook 02 and rounded through float32, the
+    and R with the same descriptor functions as notebook 04 and rounded through float32, the
     precision `explore_features.parquet` stores; float64 frame indexed by id.
 
     `table` is the parsed QM9 table (columns id, Z, R)."""

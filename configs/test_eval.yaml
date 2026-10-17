@@ -35,7 +35,7 @@ track_a:
   rbf_krr_max_n: 10000
 
 # Finite-shot inference on the quantum test subsets (exact binomial sampling, as validated
-# against Aer in notebook 07), at each model's settings chosen in the `quantum` section.
+# against Aer in notebook 09), at each model's settings chosen in the `quantum` section.
 shots:
   models: [qkrr, pqk, qridge]
   sizes: [100, 300, 1000]

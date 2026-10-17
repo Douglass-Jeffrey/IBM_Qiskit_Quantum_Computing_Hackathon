@@ -1,4 +1,4 @@
-"""Exploration X2 harness tests: inner validation splits, supervised reductions in the shared
+"""Learning-curve harness tests: inner validation splits, supervised reductions in the shared
 CV path, the fitters (models/fitters.py) and the development-set learning curve."""
 
 import numpy as np

@@ -69,7 +69,7 @@ def test_models_accept_every_scaling_and_target(scaling, target, skewed_data):
 
 def _near_empty_column_data():
     """A training set with one column that is non-zero in a single row (1e-12), like the
-    radial-distribution bins at physically empty distances that blew up ridge in explore_03,
+    radial-distribution bins at physically empty distances that blew up ridge in notebook 05,
     and a new molecule with 1e-5 in that column (z-score ~1e8 without the guard)."""
     rng = np.random.default_rng(3)
     X = rng.normal(size=(240, 4))

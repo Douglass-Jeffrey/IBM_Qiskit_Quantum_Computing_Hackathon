@@ -1,6 +1,6 @@
 """Test-set evaluation of the quantum and classical models.
 
-    python scripts/final_eval.py                      # a test run with configs/test_eval.yaml
+    python scripts/final_eval.py                      # the main evaluation (configs/test_eval.yaml)
     python scripts/final_eval.py --dry-run            # the same pipeline, scored on the development sets only
     python scripts/final_eval.py --dry-run --smoke    # one seed, N = 100, small subsets: checks the script in minutes
     python scripts/final_eval.py --sections quantum,shots   # only some sections (quantum, track_a, shots, noise)
@@ -9,15 +9,15 @@ Quantum model names: qkrr, qkrr_ry, qkrr_ryrz, qkrr_product, pqk (exact simulati
 suffix @S (e.g. qkrr@1000) makes a kernel model shot-aware: tuned, fit and evaluated with S shots per
 circuit (`quantum_kernel.ShotNoisyKernel`).
 
-Every model is trained and tuned exactly as in the development notebooks (explore_04 for the
-classical tracks, explore_06/07 for the quantum models): on the saved training sets, with
+Every model is trained and tuned exactly as in the development notebooks (06 for the classical
+tracks, 08 and 09 for the quantum models): on the saved training sets, with
 cross-validation inside each training set only. Each fitted model then predicts the test sets
 and the development sets; the development scores reproduce those notebooks and are used, as
 before, to name the best Track A model at each size.
 
-The team may iterate after a test run (its decision; every run is logged). Each run gets the next run number,
-writes results/test_runNN_<section>.csv (with .meta.json provenance) and appends a row to
-results/test_runs.csv with the commit and the config's `note` (what changed since the last run).
+Each run gets the next run number, writes results/test_runNN_<section>.csv (with .meta.json
+provenance) and appends a row to results/test_runs.csv with the commit, the config hash and the
+config's `note` (what the run is, and what changed since the previous one).
 Runs from a working tree with uncommitted code changes are refused unless --allow-dirty.
 Quantum models are simulated locally; nothing is sent to IBM hardware.
 """

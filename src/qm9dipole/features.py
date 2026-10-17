@@ -17,11 +17,11 @@ Groups (names in ENGINEERED_NAMES):
   `heteroatom_offset` is how far the N/O/F centroid sits from the molecular centroid.
 - bond counts by element pair (C-C, C-H, ..., F-F), in composition element order.
 - bond orders: multiple bonds told apart by length (cutoffs at the valleys of the training
-  pool's bond-length histograms, explore_01): C≡C, C≡N (nitrile), C=N or aromatic C–N,
+  pool's bond-length histograms, notebook 03): C≡C, C≡N (nitrile), C=N or aromatic C–N,
   C=O (carbonyl), N=O. Nitriles and carbonyls are among the most polar groups.
 - rings: the cyclomatic number of the bond graph (bonds − atoms + connected parts).
 - inertia: the three principal moments of inertia (amu·Å², isotope masses). QM9's rotational
-  constants A, B, C are exactly 505.379 GHz·amu·Å² / I (explore_01 verifies this), so they
+  constants A, B, C are exactly 505.379 GHz·amu·Å² / I (notebook 03 verifies this), so they
   are functions of Z and R too; moments stay finite for linear molecules, where QM9 stores
   A = 0 in place of infinity.
 
@@ -60,7 +60,7 @@ _HETEROATOMS = (7, 8, 9)
 BOND_TYPES: tuple[str, ...] = tuple(f"{_ELEMENTS[a]}-{_ELEMENTS[b]}" for a, b in _PAIRS)
 
 #: Multiple bonds by length: (name, sorted atomic-number pair, lower Å, upper Å). Each upper
-#: cutoff sits in an empty valley of the training pool's bond-length histogram (explore_01):
+#: cutoff sits in an empty valley of the training pool's bond-length histogram (notebook 03):
 #: C≡C 1.18–1.22 | gap 1.22–1.32; C≡N 1.14–1.16 | gap 1.18–1.24; C–N double/aromatic up to
 #: a dip at 1.42–1.44 before single bonds (~1.47); C=O 1.18–1.24 | gap 1.24–1.30;
 #: N=O 1.20–1.24 | gap 1.26–1.32. C–C double vs single has no valley (aromatic bonds fill

@@ -10,7 +10,7 @@
   negative control that the invariance tests must catch.
 - engineered: physics-motivated geometry, bond and polarity features (exploration; defined
   in `qm9dipole.features`, names in `features.ENGINEERED_NAMES`).
-- groups, qeq, rdf (exploration X2): molecule-level sums of the per-atom environments in
+- groups, qeq, rdf: molecule-level sums of the per-atom environments in
   `qm9dipole.atoms`: atom types, ring atoms and charged groups; the charge-equilibration (QEq)
   dipole and charge spread; a radial distribution function per element pair.
 

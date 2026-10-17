@@ -60,8 +60,8 @@ def test_keeps_charges_and_all_properties_for_exploration():
     )
 
 
-def test_headline_inputs_are_the_briefs():
-    # The brief's pipeline is composition + geometry -> model -> |mu|.
+def test_model_inputs_are_z_and_r():
+    # The model pipeline is composition + geometry -> model -> |mu|.
     assert HEADLINE_INPUTS == ("Z", "R") and TARGET == "mu"
 
 

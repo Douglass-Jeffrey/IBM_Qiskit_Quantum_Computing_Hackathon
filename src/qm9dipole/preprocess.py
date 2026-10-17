@@ -1,4 +1,4 @@
-"""Feature scaling and target transforms, as pipeline steps (explore_03 compares them).
+"""Feature scaling and target transforms, as pipeline steps (notebook 05 compares them).
 
 Every option is an sklearn transformer placed inside the model pipeline, so it is fit on each
 training set or fold only, including choices that depend on the data,
@@ -20,7 +20,7 @@ Guard (every unbounded scaling: standard, robust, log_standard, yeo_johnson): sc
 are clipped to ±Z_CLIP. Two failures made it necessary, both from new molecules far outside a
 training set's range, which a linear model extrapolates:
 - a column that is almost constant in a training fold gets a tiny standard deviation. In
-  explore_03, radial-distribution bins at physically empty distances (an O–F pair 0.9 Å apart)
+  notebook 05, radial-distribution bins at physically empty distances (an O–F pair 0.9 Å apart)
   held only the tails of Gaussians, ~1e-11 to 1e-5; with 1–3 non-zero training rows their sd
   was ~1e-12, a validation molecule scored z ≈ 10⁷, and ridge predicted up to 10¹⁹ D;
 - a fitted Yeo-Johnson power curve extrapolates steeply: a small molecule's padded

@@ -88,7 +88,7 @@ def test_held_out_and_development_sets_do_not_depend_on_training_seeds(splits, t
 
 
 def test_unseen_formulas_use_split_stream_1(splits, table):
-    # The unseen draw keeps X1's stream, so a design change elsewhere cannot move it.
+    # The unseen draw keeps its own stream, so a design change elsewhere cannot move it.
     rng = np.random.default_rng(np.random.SeedSequence(CFG["split_seed"]).spawn(2)[1])
     n_heavy = table.groupby("formula")["n_heavy"].first()
     assert choose_unseen_formulas(n_heavy, CFG["unseen_formula_frac"], rng) == splits.unseen_formulas
@@ -125,7 +125,7 @@ def test_rejects_more_familiar_formulas_than_smallest_n(table):
 
 
 def test_save_load_round_trip_and_stale_files_removed(splits, tmp_path):
-    (tmp_path / "train_s0_n100.json").write_text("{}")  # an X1-era file
+    (tmp_path / "train_s0_n100.json").write_text("{}")  # a file from an older split design
     save_splits(splits, tmp_path)
     assert not (tmp_path / "train_s0_n100.json").exists()
     back = load_splits(tmp_path)
@@ -254,7 +254,7 @@ def test_saved_splits_are_current_and_valid():
 
 @pytest.mark.skipif(not (SPLITS_DIR / "meta.json").exists(), reason="splits/ not built yet")
 def test_no_duplicate_molecule_anywhere_in_saved_splits():
-    # QM9 lists a few molecules twice (identical geometry and μ; explore_01). The split build
+    # QM9 lists a few molecules twice (identical geometry and μ; notebook 03). The split build
     # keeps one copy of each, so no two saved IDs, in any set, may share a geometry. Recomputed
     # here from geometry alone (no label is read), independently of the build.
     from qm9dipole.cleaning import duplicate_groups

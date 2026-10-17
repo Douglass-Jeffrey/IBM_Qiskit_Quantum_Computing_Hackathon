@@ -1,20 +1,20 @@
 """Effective dimension of the inputs and effective number of parameters of fitted models.
 
-Inputs (explore_03): how many independent directions do the standardized features span?
+Inputs (notebook 05): how many independent directions do the standardized features span?
 - participation ratio PR = (Σλ)² / Σλ² of the covariance eigenvalues: d for d equally
   strong directions, 1 if one direction dominates;
 - components needed for a share of the variance; condition number √(λ_max/λ_min);
 - variance inflation factors VIF_j = 1 / (1 − R²_j), R²_j from regressing feature j on the
   others: above ~10, a linear model cannot separate feature j's effect from the rest.
 
-Fitted models (explore_04), following Hastie, Tibshirani & Friedman, ESL §7.6: a model
+Fitted models (notebook 06), following Hastie, Tibshirani & Friedman, ESL §7.6: a model
 that fits ŷ = S y is a linear smoother, and its effective number of parameters is
 df = tr(S) = Σᵢ ∂ŷᵢ/∂yᵢ, the total self-influence of the training labels:
 - mean: 1; OLS: 1 + rank of the centred design;
 - ridge (with intercept): 1 + Σⱼ dⱼ² / (dⱼ² + α), d = singular values of the centred design;
 - kernel ridge on a centred target (no intercept): S = K(K+αI)⁻¹(I − J) + J, J = 11ᵀ/n,
   so df = 1 + tr(K(K+αI)⁻¹) − 1ᵀK(K+αI)⁻¹1 / n. The same formula applies to the
-  quantum kernels of explore_06.
+  quantum kernels of notebook 08.
 For models that are not linear smoothers (random forest, boosting), df is estimated with
 Ye's (1998) generalized degrees of freedom: perturb y by small Gaussian noise δ, refit, and
 sum the per-sample slopes of ŷᵢ on δᵢ, df ≈ Σᵢ cov(ŷᵢ, δᵢ) / τ².

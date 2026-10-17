@@ -1,4 +1,4 @@
-# Data: raw downloads and anything regenerated from them (notebooks 00 and 01 rebuild them)
+# Data: raw downloads and anything regenerated from them (notebooks 00, 01 and 04 rebuild them)
 data/raw/
 data/processed/
 *.part
@@ -19,5 +19,5 @@ dist/
 # A raw-data copy outside data/raw/ (it belongs there, gitignored)
 /dsgdb9nsd.xyz.tar.bz2
 
-# Superseded material kept locally, not part of the submission
+# Local notes and superseded material, never published
 archive/

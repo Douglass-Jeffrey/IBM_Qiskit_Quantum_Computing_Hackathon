@@ -1,4 +1,4 @@
-"""Latent-charge dipole model (exploration X2, Track A; a physics-informed charge
+"""Latent-charge dipole model (Track A; a physics-informed charge
 model). numpy only, with hand-written gradients (checked against finite differences in
 tests/test_charge_model.py).
 

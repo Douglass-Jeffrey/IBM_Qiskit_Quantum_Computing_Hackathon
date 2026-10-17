@@ -1,17 +1,18 @@
-"""Plumbing for the exploration chain (notebooks/explore_0*): where each step writes its
-output, how the next step loads it, and the feature sets every model notebook uses.
+"""Plumbing for the development notebooks (03-09): where each step writes its output, how the
+next step loads it, and the feature sets every model notebook uses.
 
-    01 EDA ─▶ results/nb03_recommendations.csv
-    02 cleaning + features ─▶ data/processed/explore_features.parquet (regenerated, gitignored)
-                              results/nb04_feature_catalog.csv (committed)
-    03 scaling + dimension ─▶ results/nb05_preprocessing.json (committed)
-    04 models ─▶ results/nb06_*.csv (learning curves, Track A and Track B)
-    05 generalization ─▶ results/nb07_*.csv
+    03 data analysis ─▶ results/development/nb03_recommendations.csv
+    04 cleaning + features ─▶ data/processed/explore_features.parquet (regenerated, gitignored)
+                              results/development/nb04_feature_catalog.csv (committed)
+    05 scaling + compression ─▶ results/development/nb05_preprocessing.json (committed)
+    06 classical models ─▶ results/{classical,comparison}/nb06_*.csv (Track A and Track B)
+    07 diagnostics ─▶ results/classical/nb07_*.csv
+    08, 09 quantum models ─▶ results/comparison/nb08_*.csv, results/hardware/nb09_*.csv
 
-Exploration X2 (the 2026-10-06 redesign of the classical analysis around accuracy) works on the **development universe**: the training
-pool plus the two development sets (`dev`, `dev_unseen`), never a test set. Per-atom features
-are not stored (about 0.7 GB); `load_atoms` recomputes them from Z and R in about a minute and
-keeps the columns notebook 02 kept.
+These notebooks work on the **development universe**: the training pool plus the two
+development sets (`dev`, `dev_unseen`), never a test set. Per-atom features are not stored
+(about 0.7 GB); `load_atoms` recomputes them from Z and R in about a minute and keeps the
+columns notebook 04 kept.
 
 Keeping the definitions here means a change upstream (a dropped feature, a new scaling
 choice) reaches every later notebook without editing them.
@@ -34,7 +35,7 @@ FEATURES_PATH = PROCESSED_DIR / "explore_features.parquet"
 CATALOG_NAME = "nb04_feature_catalog"
 PREPROCESSING_PATH = results_file("nb05_preprocessing.json")
 
-#: Molecule-level feature blocks, as written by explore_02. Legal blocks are functions of Z and R.
+#: Molecule-level feature blocks, as written by notebook 04. Legal blocks are functions of Z and R.
 LEGAL_BLOCKS: tuple[str, ...] = ("composition", "cm", "engineered", "groups", "qeq", "rdf")
 DFT_BLOCKS: tuple[str, ...] = ("dft_property", "charge", "frequency")
 #: Per-atom features (atoms.ATOM_FEATURE_NAMES) are catalogued with this block name.
@@ -47,7 +48,7 @@ def load_config() -> dict:
 
 def development_ids(splits) -> np.ndarray:
     """Sorted IDs of the training pool and both development sets: every molecule the
-    exploration chain may read. No test molecule is among them."""
+    development notebooks may read. No test molecule is among them."""
     return np.sort(np.concatenate([splits.pool, splits.dev, splits.dev_unseen]))
 
 
@@ -72,11 +73,11 @@ def feature_sets(catalog: pd.DataFrame) -> dict[str, list[str]]:
     """Named molecule-level feature sets built from the kept features of the catalog.
 
     Headline-legal (functions of Z and R):
-    - composition: atom counts (the brief's composition-only ablation);
+    - composition: atom counts (the composition-only ablation);
     - cm: the Coulomb-matrix spectrum;
-    - structure: composition + X1's engineered features (X1's best set, for continuity);
-    - structure+: structure + charged groups and atom types + the QEq dipole (X2);
-    - all_legal: structure+ + the per-element-pair radial distribution + cm (X2's richest).
+    - structure: composition + the engineered geometry features (the project's first feature set);
+    - structure+: structure + charged groups and atom types + the QEq dipole;
+    - all_legal: structure+ + the per-element-pair radial distribution + cm (the richest set).
     Exploration-only, labeled as such in every result: structure+dft (structure plus every
     kept DFT-derived feature).
     """
@@ -100,7 +101,7 @@ EXPLORATION_ONLY_SETS: tuple[str, ...] = ("structure+dft",)
 
 
 def atom_feature_names(catalog: pd.DataFrame) -> list[str]:
-    """The per-atom features notebook 02 kept, in atoms.ATOM_FEATURE_NAMES order."""
+    """The per-atom features notebook 04 kept, in atoms.ATOM_FEATURE_NAMES order."""
     from qm9dipole.atoms import ATOM_FEATURE_NAMES
 
     kept = set(catalog.loc[(catalog["block"] == ATOM_BLOCK) & catalog["kept"], "feature"])
@@ -118,7 +119,7 @@ def load_atoms(table: pd.DataFrame, ids: np.ndarray, catalog: pd.DataFrame | Non
 
 
 def load_preprocessing() -> dict:
-    """The scaling, target transform and Track B reduction chosen by explore_03 (and evidence)."""
+    """The scaling, target transform and Track B reduction chosen by notebook 05 (and evidence)."""
     if not PREPROCESSING_PATH.exists():
         raise FileNotFoundError(f"{PREPROCESSING_PATH.name} not found: run notebooks/05_scaling_and_compression.ipynb")
     return json.loads(PREPROCESSING_PATH.read_text())

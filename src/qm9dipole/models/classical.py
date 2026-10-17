@@ -1,7 +1,7 @@
 """Classical regressors as scikit-learn pipelines with their CV grids.
 
 Every model is TransformedTargetRegressor(target transform, Pipeline(scaling → [PCA(k)] →
-regressor)). Scaling and target options are in `preprocess` (explore_03 chooses them by
+regressor)). Scaling and target options are in `preprocess` (notebook 05 chooses them by
 CV). Because every fitted step sits inside the estimator, cloning and fitting it on a fold's
 training part refits all of them there: the compressed variant and the target transform are
 fit on each training set (and fold) only. Hyperparameter names carry the
@@ -20,7 +20,7 @@ Targets: μ in debye, transformed by `target` (default: standardized, which give
 ridge, a model without an intercept, the training mean as its baseline) and inverted after
 prediction, so predictions are in debye.
 
-Reductions (exploration X2, Track B): `reduction=(method, k)` inserts, after scaling, one of
+Reductions (Track B): `reduction=(method, k)` inserts, after scaling, one of
 - "pca":   the first k principal components (unsupervised);
 - "pls":   k partial-least-squares components, directions chosen for covariance with the
            (transformed) target, so supervised;
@@ -110,9 +110,9 @@ KRR_ALPHAS: tuple[float, ...] = (1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1.0, 10.0)
 def rbf_grid(n_features: int) -> dict[str, list]:
     """Kernel-ridge grid whose RBF bandwidths scale with the input dimension: γ = c / d for
     c in logspace(−3, 2, 11), α in KRR_ALPHAS. Squared distances between standardized points
-    grow like 2d, so a fixed γ grid suits only one dimension (X1's grid assumed tens of
-    features). Widened on 2026-10-07 at the smooth end (c from 1e-2 down to 1e-3, α up to 10)
-    together with the quantum kernels' grids, after optima sat at both edges of the old grids."""
+    grow like 2d, so a fixed γ grid suits only one dimension. The grid reaches far toward the
+    smooth end (small c, large α), as do the quantum kernels' grids, because optima sat at both
+    edges of a narrower grid."""
     return {"model__alpha": list(KRR_ALPHAS),
             "model__gamma": (np.logspace(-3, 2, 11) / max(n_features, 1)).tolist()}
 
@@ -142,7 +142,7 @@ def build(name: str, seed: int, compressed: bool = False, n_components: int = N_
     """(estimator, grid) for model `name`; `seed` fixes the tree models' randomness.
 
     The estimator's `regressor` is the feature pipeline (steps "scale"/"log"/..., optional
-    "pca" (X1's compressed variant) or "reduce" + "rescale" (`reduction`), then "model"); after
+    "pca" (a fixed PCA step) or "reduce" + "rescale" (`reduction`), then "model"); after
     fitting, the fitted copy is `regressor_`. With `n_features` (or a reduction), kernel ridge
     uses the dimension-scaled bandwidth grid `rbf_grid`.
     """

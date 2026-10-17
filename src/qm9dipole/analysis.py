@@ -1,4 +1,4 @@
-"""Exploratory statistics for the classical analysis (notebooks/explore_*.ipynb).
+"""Exploratory statistics for the classical analysis (notebooks 03-07).
 
 Nothing here reads a test set: callers pass training-pool data (or a training set) only.
 Units: μ and every error in debye.

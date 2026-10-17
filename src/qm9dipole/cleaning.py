@@ -1,5 +1,5 @@
-"""Data cleaning for the exploration chain (notebooks/explore_02), motivated by the EDA
-(notebooks/explore_01). Rules run on the training pool only and never read a test set.
+"""Data cleaning (notebook 04), motivated by the exploratory data analysis
+(notebook 03). Rules run on the training pool only and never read a test set.
 
 Record level (QM9 quirks found in the EDA):
 - frequency lists printed twice: 433 raw records list exactly 2 × (3n − 6) frequencies;
@@ -76,8 +76,7 @@ def duplicate_groups(ids: np.ndarray, formulas: pd.Series | np.ndarray, spectra:
 def duplicate_extras(ids: np.ndarray, formulas: pd.Series | np.ndarray, spectra: np.ndarray,
                      decimals: int = 2) -> frozenset[int]:
     """IDs to exclude so that every duplicate group keeps exactly one molecule, its smallest
-    ID. Dropping the extra copies before splitting means no molecule can sit in two sets
-    (exploration X2)."""
+    ID. Dropping the extra copies before splitting means no molecule can sit in two sets."""
     group = duplicate_groups(ids, formulas, spectra, decimals)
     return frozenset(int(i) for i, first in group.items() if i != first)
 
@@ -92,7 +91,7 @@ def redundant_columns(frame: pd.DataFrame, threshold: float, priority: list[str]
     """Greedy redundancy filter: walk columns in priority order and keep a column unless its
     |Spearman ρ| with an already kept column is ≥ `threshold`.
 
-    With `active_only` (exploration X2), a pair must also reach the threshold on the rows where
+    With `active_only`, a pair must also reach the threshold on the rows where
     either column is non-zero (when there are at least `min_active` such rows). Zero-inflated
     columns, such as counts of a rare neighbour, share long runs of tied zeros, which alone
     push ρ over all rows towards 1 even when their non-zero values differ; the second test
