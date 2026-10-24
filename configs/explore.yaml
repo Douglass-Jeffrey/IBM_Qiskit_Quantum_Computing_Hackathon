@@ -55,6 +55,11 @@ charge_model:
     mp2-mse:             {hidden: [128, 64], message_passing: 2, atomic_dipoles: true, loss: mse}
 
 track_b:
+  # Inputs (= qubits) of the quantum-comparable models, fixed for every later step. Notebook 05's
+  # one-standard-error rule chose 10 before the +-10 clip on scaled features existed and lands on 8
+  # with it: CV MAE 0.500 (k = 8) vs 0.498 D (k = 10) at N = 1000, a tie inside the seed-to-seed
+  # spread of about 0.02 D. Every later experiment, the test-set evaluation and the hardware run use 10.
+  pinned_k: 10
   # Matched baselines for a k-qubit model: RBF kernel ridge on k reduced inputs, at these k.
   matched_k: [4, 6, 8, 12, 16]
   models: [mean, ridge, rbf_krr, rf, xgb]
