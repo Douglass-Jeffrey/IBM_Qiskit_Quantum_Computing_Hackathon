@@ -124,6 +124,7 @@ They are numbered in run order, and each reads the outputs of the previous ones.
 | [08_quantum_vs_classical](notebooks/08_quantum_vs_classical.ipynb) | **The central experiment:** quantum models vs classical twins; qubits, inputs, kernel concentration |
 | [09_shots_noise_and_cost](notebooks/09_shots_noise_and_cost.ipynb) | Hardware cost, finite shots and simulated device noise |
 | [10_test_set_results](notebooks/10_test_set_results.ipynb) | **Final scorecard:** every model on the test sets, shot-aware tuning, the IBM hardware run |
+| [11_quantum_feature_ridge](notebooks/11_quantum_feature_ridge.ipynb) | A focused look at the team's ⟨Z⟩-feature ridge model, the one that ran on IBM hardware |
 
 Notebooks 03–09 use only training and development data; the test sets are scored once per evaluation run by
 [`scripts/final_eval.py`](scripts/final_eval.py). More on each notebook: [notebooks/README.md](notebooks/README.md).
@@ -166,7 +167,8 @@ troubleshooting: [docs/reproducing.md](docs/reproducing.md).
   ([prompt slide](docs/prompt_slide.png)).
 - Teammate [yuyuko-s](https://github.com/yuyuko-s) wrote the Qiskit encoding circuits (`build_encoding_circuit`) and
   the original quantum-feature ridge model ([`models/quantum.py`](src/qm9dipole/models/quantum.py)), which every
-  quantum model here builds on.
+  quantum model here builds on, and its presentation notebook
+  ([notebook 11](notebooks/11_quantum_feature_ridge.ipynb)).
 - IBM Quantum hardware access (`ibm_quebec`) was provided through PINQ² for the hackathon.
 - The state of the repository at the hackathon deadline is tagged `hackathon-submission`.
 

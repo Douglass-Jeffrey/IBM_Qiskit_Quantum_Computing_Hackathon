@@ -23,7 +23,7 @@ FIGURES_DIR = REPO_ROOT / "figures"
 #: `nbNN_` files come from notebooks/NN_*.ipynb, `test_runNN_` files from scripts/final_eval.py.
 #: Names matching no pattern (e.g. the run log test_runs.csv) stay at the top level.
 OUTPUT_GROUPS: tuple[tuple[str, str], ...] = (
-    ("comparison", r"nb06_(track_b|quantum_baselines)|nb08_|test_run\d+_(quantum|headline|learning_curves|shot_aware)"),
+    ("comparison", r"nb06_(track_b|quantum_baselines)|nb08_|nb11_|test_run\d+_(quantum|headline|learning_curves|shot_aware)"),
     ("hardware", r"nb09_|test_run\d+_(shots|noise)|hardware_"),
     ("classical", r"nb06_|nb07_|test_run\d+_track_a"),
     ("development", r"nb0[1-5]_"),

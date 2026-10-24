@@ -47,7 +47,9 @@ except the two "all 188 features" rows.
   N = 1,000, +0.004 ± 0.001 D. The quantum kernel and its twin are indistinguishable.
 - **RMSE at N = 1,000:** 0.722 D (QKRR), 0.720 D (twin), 1.457 D (mean).
 - **The no-entanglement control does just as well** (0.490 / 0.433 D), so entanglement adds nothing measurable here.
-- **The team's ⟨Z⟩ ridge is weaker** than plain ridge on the same inputs (0.545 vs 0.509 D at N = 1,000).
+- **The team's ⟨Z⟩ ridge is weaker** than plain ridge on the same inputs (0.545 vs 0.509 D at N = 1,000), despite a
+  larger tuning budget (165 vs 15 settings); [notebook 11](../notebooks/11_quantum_feature_ridge.ipynb) looks at this
+  model on its own.
 - **On a simulator, the tie persists to 10,000 labels** (development set, seed 0): QKRR 0.473 / 0.447 D at
   N = 3,000 / 10,000 vs RBF kernel ridge 0.468 / 0.439 D.
 

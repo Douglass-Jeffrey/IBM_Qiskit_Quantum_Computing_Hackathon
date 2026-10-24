@@ -104,6 +104,7 @@ print(new, "max |Δ MAE| =", (a - b.loc[a.index]).abs().max())
 | `scripts/final_eval.py` | Retrain everything; score the test sets (runs 1 and 2) | ~4 h 10 min; ~30 min |
 | `scripts/hardware_run.py` | Hardware circuits on a noise model or IBM hardware (runs 3 and 4) | ~2 min; 45 s QPU |
 | [10_test_set_results](../notebooks/10_test_set_results.ipynb) | Presents every evaluation run | ~3 min |
+| [11_quantum_feature_ridge](../notebooks/11_quantum_feature_ridge.ipynb) | The team's ⟨Z⟩ ridge on its own, from the saved results | seconds |
 
 - **Run them in order:** each notebook reads the previous ones' outputs. Notebooks 03–09 never read a test set.
 - **Caching:** the long notebooks cache finished fits per commit in `data/processed/cache/`, so an interrupted run

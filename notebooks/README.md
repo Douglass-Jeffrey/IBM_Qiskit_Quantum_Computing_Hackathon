@@ -20,7 +20,7 @@ they can be read on GitHub without running anything.
                                                              08 quantum vs classical ─▶ 09 shots, noise, cost
                                                                                    │
                      scripts/final_eval.py, scripts/hardware_run.py  (test sets)   ▼
-                                                                         10 test-set results
+                                                     10 test-set results, 11 the team's ⟨Z⟩ ridge
 ```
 
 | | Notebook | Question | Runtime |
@@ -36,10 +36,11 @@ they can be read on GitHub without running anything.
 | **Quantum** | [08_quantum_vs_classical](08_quantum_vs_classical.ipynb) | Does a quantum kernel beat its classical twin on identical inputs? Why or why not? | ~1.5 h |
 | | [09_shots_noise_and_cost](09_shots_noise_and_cost.ipynb) | What would it cost on real hardware, and what do shots and noise do to accuracy? | ~50 min |
 | **Test** | [10_test_set_results](10_test_set_results.ipynb) | How do all models do on the held-out test sets, and on IBM hardware? | ~3 min |
+| | [11_quantum_feature_ridge](11_quantum_feature_ridge.ipynb) | How does the team's ⟨Z⟩-feature ridge model, the one run on IBM hardware, compare on its own? | seconds |
 
 Runtimes are from scratch on an 8-core laptop; the long notebooks cache finished fits in `data/processed/cache/` and
 resume after an interruption. Notebooks 03–09 use only the training pool and the two development sets. The test sets
-are scored by `scripts/final_eval.py` (and `scripts/hardware_run.py`), and notebook 10 presents those results.
+are scored by `scripts/final_eval.py` (and `scripts/hardware_run.py`); notebooks 10 and 11 present those results.
 
 **Outputs.** Each notebook writes its tables and figures as `results/<group>/nbNN_*.csv` and
 `figures/<group>/nbNN_*.png`, where NN is its number; files from the evaluation script are named `test_runNN_*`. The
@@ -63,3 +64,4 @@ The notebooks were renumbered after the hackathon. Git history, commit messages 
 | 08_quantum_vs_classical | explore_06_quantum_vs_classical | `explore06_` |
 | 09_shots_noise_and_cost | explore_07_shots_noise_cost | `explore07_` |
 | 10_test_set_results | 07_test_comparison | — |
+| 11_quantum_feature_ridge | 07_quantum_feature_ridge (added by yuyuko-s at the deadline) | `qridge_` |

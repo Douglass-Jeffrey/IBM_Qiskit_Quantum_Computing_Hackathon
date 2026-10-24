@@ -234,6 +234,10 @@ Every quantum kernel is paired with a **classical twin**, RBF kernel ridge, and 
 - **same code**: the quantum tuner reproduces the classical one exactly when given the RBF kernel (unit-tested), so
   a quantum-vs-RBF difference comes from the kernel, not the tuning.
 
+The matched budget applies to the quantum kernels and their RBF twins. The ⟨Z⟩-feature ridge searches 165 settings
+(15 ridge penalties × 11 angle scales) against 15 for plain ridge on the same inputs, so that pairing is not an
+equal-budget comparison ([notebook 11](../notebooks/11_quantum_feature_ridge.ipynb)).
+
 **Choosing what to report.** The headline quantum model is the quantum configuration with the lowest CV error at
 N = 1,000, chosen inside the training data. The reference models are chosen per training size: the best Track B
 model by CV, the best Track A model by its `dev` score. Results are mean ± standard deviation over the 3 seeds, plus
