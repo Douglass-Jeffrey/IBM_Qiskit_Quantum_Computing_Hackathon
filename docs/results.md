@@ -105,7 +105,10 @@ Source: [notebook 08](../notebooks/08_quantum_vs_classical.ipynb) (development s
   information and PCA for both families (QKRR 0.499 / 0.568 / 0.706 D; RBF 0.497 / 0.551 / 0.698 D).
 - **The team model's quantum part has a classical closed form.** For the two-pass ZZ map, each qubit's ⟨Z⟩ equals
   cos(2aₖ) · Π_neighbours cos(2(π − aₖ)(π − aⱼ)) with a = γx, verified to 3 × 10⁻¹⁴ over 5,000 molecules: the ⟨Z⟩ ridge
-  is ridge regression on a fixed classical feature map of 10 numbers.
+  is ridge regression on a fixed classical feature map of 10 numbers. At the angle scale cross-validation chose for
+  every seed at N = 1,000 (γ = 0.02, the grid's smallest), a linear function of the inputs explains 99% of the
+  features' variance, so the model behaves like plain ridge on a slightly distorted copy of its inputs
+  ([notebook 11](../notebooks/11_quantum_feature_ridge.ipynb)).
 - **The quantum model is invariant, and the simulator is right.** Rotating, translating and relabelling 50
   development molecules changes QKRR's predictions by ≤ 4 × 10⁻¹³ D; the same kernel on raw coordinates (negative
   control) changes by 1.1–1.3 D. The batched statevectors match Qiskit's `Statevector` to 6 × 10⁻¹⁴.
