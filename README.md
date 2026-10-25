@@ -5,8 +5,8 @@ one?** We built quantum regression models in [Qiskit](https://www.ibm.com/quantu
 classical "twin" that gets exactly the same inputs, data and tuning budget, and ran the most hardware-friendly one on
 a 156-qubit IBM quantum processor.
 
-*A team project from Qiskit Fall Fest 2026 at the University of Ottawa (October 3–7, 2026), reorganized afterwards
-for readability.*
+*A team project for Qiskit Fall Fest 2026 at the University of Ottawa (October 3–7, 2026), updated/reorganized
+afterwards for readability (since we were short on time near the end of the hackathon)*
 
 ![Test-set error vs number of training labels](figures/comparison/test_run01_learning_curves.png)
 
