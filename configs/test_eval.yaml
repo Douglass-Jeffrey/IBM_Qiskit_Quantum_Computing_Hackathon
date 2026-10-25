@@ -1,5 +1,5 @@
 # Main test-set evaluation (evaluation run 1): every model exactly as built in the development notebooks.
-#   python scripts/final_eval.py                     # all four sections, about 4 hours on an 8-core laptop
+#   python scripts/final_eval.py                     # all four sections, about 4.5 hours on an 8-core laptop
 #   python scripts/final_eval.py --sections quantum  # the quantum-vs-classical comparison only, about 40 minutes
 # Results: results/*/test_runNN_*.csv, one row per run in results/test_runs.csv; presented by
 # notebooks/10_test_set_results.ipynb. Values (not comments) are hashed into the run log's config_hash.

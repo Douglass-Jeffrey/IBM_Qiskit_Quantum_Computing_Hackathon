@@ -160,6 +160,9 @@ Then run the notebooks in order, or reproduce the headline comparison in about 4
 01 and 04, then `python scripts/final_eval.py --sections quantum`. Step-by-step instructions, runtimes and
 troubleshooting: [docs/reproducing.md](docs/reproducing.md).
 
+A full rerun from the raw data (October 2026, about 16.5 hours on a laptop) reproduced every reported number
+exactly; see [docs/reproducing.md](docs/reproducing.md#7-verification-a-full-from-scratch-rerun).
+
 ## Team and acknowledgements
 
 - Built by a team at Qiskit Fall Fest 2026 (University of Ottawa), answering the hackathon prompt *"Learn molecular

@@ -274,6 +274,13 @@ Things that went wrong during development, and what they taught:
   unaffected, only reuse.
 - **float32 storage can leak into float64 math.** The feature table is stored in float32; one direct refit passed it
   to scikit-learn unchanged, which then computed Yeo-Johnson and PLS in float32 and moved an MAE by up to 0.024 D.
+- **Defaults can hide randomness.** scikit-learn's PCA silently switches to a randomized solver above 500 training
+  rows, and the project never seeded it, so PCA results at N = 1,000 differed by up to 3 × 10⁻⁴ D between otherwise
+  identical runs. A from-scratch rerun caught it (every other number reproduced exactly); PCA now uses the exact
+  solver.
+- **Saved outputs go stale.** A results table and six figure files of notebook 03, and the outputs of notebooks 02
+  and 05, predated later code changes because those notebooks had not been rerun since. Rerunning everything from the
+  raw data is the only reliable check; the rerun refreshed them.
 - **Tune for the conditions you will run in.** The fidelity kernel's exact-simulation optimum is precisely the regime
   that shot noise destroys; tuning with shots in the loop is what a team with a real device should do from the start.
 

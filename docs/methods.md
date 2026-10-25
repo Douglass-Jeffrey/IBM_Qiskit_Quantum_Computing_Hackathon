@@ -158,8 +158,10 @@ cross-validation (CV) inside the training sets with a rule fixed before the comp
   Every prediction is transformed back to debye before scoring, and negative predictions are clipped at 0 D.
 - **Compression to 10 inputs.** A quantum model takes one input per qubit, so 188 features must be compressed.
   Partial least squares (PLS; the directions of the inputs with the largest covariance with the target, refit on
-  every training set) beat PCA and top-k feature selection by mutual information. **10 components** were chosen by
-  the one-standard-error rule at N = 1,000: the smallest k whose CV error is within one standard error of the best.
+  every training set) beat PCA and top-k feature selection by mutual information. The models use **10
+  components**. The one-standard-error rule at N = 1,000 (the smallest k whose CV error is within one standard error
+  of the best) gives 8 with the ±10 clip in place and gave 10 before it; 8 and 10 are a tie (CV MAE 0.500 vs 0.498 D,
+  against a seed-to-seed spread of about 0.02 D), so the number is fixed at 10 in `configs/explore.yaml`.
 
 **Classical models** ([`models/classical.py`](../src/qm9dipole/models/classical.py),
 [`models/fitters.py`](../src/qm9dipole/models/fitters.py)):
@@ -293,8 +295,8 @@ in [`results/test_runs.csv`](../results/test_runs.csv) with its commit and confi
 
 | Run | What it evaluated | Config |
 |---|---|---|
-| 1 | **Main evaluation**: every model as developed on the development sets, unchanged: the quantum models and their classical comparisons (N ≤ 1,000), Track A to 99,198 labels, finite shots, and FakeFez noise on 60 test molecules (≈ 4 h) | [`test_eval.yaml`](../configs/test_eval.yaml) |
-| 2 | **Shot-aware quantum kernels**: QKRR at 100 / 1,000 / 10,000 shots and the projected kernel at 100 / 1,000 shots, tuned with the shots inside CV (≈ 30 min) | [`test_eval_shot_aware.yaml`](../configs/test_eval_shot_aware.yaml) |
+| 1 | **Main evaluation**: every model as developed on the development sets, unchanged: the quantum models and their classical comparisons (N ≤ 1,000), Track A to 99,198 labels, finite shots, and FakeFez noise on 60 test molecules (≈ 4.5 h) | [`test_eval.yaml`](../configs/test_eval.yaml) |
+| 2 | **Shot-aware quantum kernels**: QKRR at 100 / 1,000 / 10,000 shots and the projected kernel at 100 / 1,000 shots, tuned with the shots inside CV (≈ 20 min) | [`test_eval_shot_aware.yaml`](../configs/test_eval_shot_aware.yaml) |
 | 3 | **Hardware rehearsal**: the hardware circuits on the FakeQuebec noise model, locally | `hardware_run.py` |
 | 4 | **IBM hardware**: the ⟨Z⟩ ridge on `ibm_quebec` (job `db3da0kvf2bc73csuk60`, 160 circuits × 1,000 shots, 45 s of QPU time) | `hardware_run.py --backend ibm_quebec` |
 

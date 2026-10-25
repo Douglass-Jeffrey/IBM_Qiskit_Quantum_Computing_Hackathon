@@ -1,5 +1,5 @@
 # Follow-up evaluation (run 2): shot-aware quantum kernels, tuned, fit and evaluated with finite shots.
-#   python scripts/final_eval.py --config configs/test_eval_shot_aware.yaml   # about 30 minutes
+#   python scripts/final_eval.py --config configs/test_eval_shot_aware.yaml   # about 20 minutes
 # The main evaluation (test_eval.yaml) showed the fidelity-kernel model collapsing under shot noise when tuned
 # on exact kernels; here every kernel entry is estimated from S shots inside cross-validation as well.
 # Values (not comments) are hashed into the run log's config_hash.
