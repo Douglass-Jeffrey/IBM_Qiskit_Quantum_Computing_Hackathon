@@ -1,5 +1,5 @@
 {
- "git_hash": "09a6a30b69d3de123d462d3c6bba9a8a16c07cd4",
+ "git_hash": "6c35751ff4fcb5e15086a12b2417ffc6ce2cd922",
  "versions": {
   "python": "3.12.14",
   "qiskit": "2.5.2",

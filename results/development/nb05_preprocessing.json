@@ -19,49 +19,50 @@
     "mae_at_k_one_se": 0.5098032431643323
    },
    "pca": {
-    "min_mae": 0.5707936335876161,
+    "min_mae": 0.5744780023185334,
     "k_at_min": 32,
     "k_one_se": 32,
-    "mae_at_k_one_se": 0.5707936335876161
+    "mae_at_k_one_se": 0.5744780023185334
    },
    "pls": {
-    "min_mae": 0.49178278932311964,
+    "min_mae": 0.4884385894321803,
     "k_at_min": 24,
-    "k_one_se": 10,
-    "mae_at_k_one_se": 0.49944980355783586
+    "k_one_se": 8,
+    "mae_at_k_one_se": 0.5001433541095585
    }
-  }
+  },
+  "k_rule": 8
  },
  "rules": {
   "scaling_and_target": "lowest mean MAE over the paired cells of each track (CV for Track B, dev set for Track A)",
-  "reduction": "at the largest Track B size, the method with the lowest minimum mean CV MAE (RBF kernel ridge); k = smallest within one standard error over seeds of that minimum"
+  "reduction": "at the largest Track B size, the method with the lowest minimum mean CV MAE (RBF kernel ridge); k = smallest within one standard error over seeds of that minimum (k_rule); configs/explore.yaml track_b.pinned_k, when set, fixes the k later steps use"
  },
  "scaling_mean_mae": {
   "track_b": {
-   "standard": 288.6612,
-   "robust": 0.67691,
-   "log_standard": 294.47462,
-   "yeo_johnson": 0.57713,
-   "quantile_normal": 0.62008
+   "standard": 0.58626,
+   "robust": 0.61459,
+   "log_standard": 0.58021,
+   "yeo_johnson": 0.57675,
+   "quantile_normal": 0.61984
   },
   "track_a": {
-   "standard": 0.45235,
-   "robust": 0.49644,
-   "log_standard": 0.4447,
-   "yeo_johnson": 0.45677,
-   "quantile_normal": 0.46023
+   "standard": 0.45157,
+   "robust": 0.46384,
+   "log_standard": 0.44382,
+   "yeo_johnson": 0.456,
+   "quantile_normal": 0.46112
   }
  },
  "target_mean_mae": {
   "track_b": {
-   "standard": 0.57631,
-   "sqrt": 0.57515,
-   "log1p": 0.58195
+   "standard": 0.57604,
+   "sqrt": 0.57454,
+   "log1p": 0.58134
   },
   "track_a": {
-   "standard": 0.42083,
-   "sqrt": 0.42261,
-   "log1p": 0.43349
+   "standard": 0.42018,
+   "sqrt": 0.42115,
+   "log1p": 0.43393
   }
  },
  "kbest_features": [
@@ -80,34 +81,34 @@
   {
    "feature set": "composition",
    "features": 5,
-   "participation ratio": 3.2,
+   "participation ratio": 3.12,
    "k for 95%": 4
   },
   {
    "feature set": "cm",
    "features": 29,
-   "participation ratio": 6.05,
+   "participation ratio": 4.9,
    "k for 95%": 17
   },
   {
    "feature set": "structure",
    "features": 31,
-   "participation ratio": 9.57,
-   "k for 95%": 16
+   "participation ratio": 9.07,
+   "k for 95%": 15
   },
   {
    "feature set": "structure+",
    "features": 53,
-   "participation ratio": 13.07,
-   "k for 95%": 23
+   "participation ratio": 11.61,
+   "k for 95%": 22
   },
   {
    "feature set": "all_legal",
    "features": 188,
-   "participation ratio": 13.0,
-   "k for 95%": 57
+   "participation ratio": 10.92,
+   "k for 95%": 53
   }
  ],
- "config_hash": "9c69650d620d",
- "git_hash": "f88fca16d1be5589b2748c509274caa55e7ad64d-dirty"
+ "config_hash": "8b90a2a6b6db",
+ "git_hash": "e524ddd056caf7ab00f96dac97bb06b8f421be93"
 }
