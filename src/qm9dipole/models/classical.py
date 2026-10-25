@@ -93,7 +93,9 @@ def reduction_steps(method: str, k: int) -> list[tuple[str, object]]:
     """Pipeline steps reducing scaled features to k inputs (see REDUCTIONS), re-standardized."""
     match method:
         case "pca":
-            step = PCA(n_components=k)
+            # Exact SVD: the default solver turns randomized (and unseeded) above 500 rows, which made
+            # PCA results at N = 1000 vary by up to 3e-4 D between otherwise identical runs.
+            step = PCA(n_components=k, svd_solver="full")
         case "pls":
             step = PLSScores(n_components=k)
         case "kbest":
@@ -148,7 +150,7 @@ def build(name: str, seed: int, compressed: bool = False, n_components: int = N_
     """
     steps = [*scaling_steps(scaling)]
     if compressed:
-        steps.append(("pca", PCA(n_components=n_components)))
+        steps.append(("pca", PCA(n_components=n_components, svd_solver="full")))
     if reduction is not None:
         steps += reduction_steps(*reduction)
     steps.append(("model", _regressor(name, seed)))
