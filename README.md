@@ -1,7 +1,7 @@
 # Learning molecular dipoles from fewer labels: quantum kernels vs classical models
 
-**Can a quantum machine-learning model predict a molecular property from fewer labelled examples than a classical
-one?** We built quantum regression models in [Qiskit](https://www.ibm.com/quantum/qiskit), compared each one with a
+**Can a Quantum machine learning model achieve similar prediction accuracy to classical counterparts under identical conditions?**
+We built quantum regression models in [Qiskit](https://www.ibm.com/quantum/qiskit), compared each one with a
 classical "twin" that gets exactly the same inputs, data and tuning budget, and ran the most hardware-friendly one on
 a 156-qubit IBM quantum processor.
 
